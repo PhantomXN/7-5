@@ -1,0 +1,55 @@
+//
+
+#define _CRT_SECURE_NO_WARNINGS
+
+#include <stdio.h> // printf, scanf definition
+
+#include <stdlib.h> // system pause definition
+
+int main() {
+
+    int arr[12];
+
+    int odd = 0,
+
+        even = 0,
+
+        check;
+
+    for (int i = 0; i<12; i++) {
+
+    scanf("%d", &arr[i]);
+
+    }
+
+    for (int i = 0; i < 12 ; i += 2) {
+
+        odd += arr[i];
+
+    }
+
+    for (int i = 1; i < 11 ; i += 2) {
+
+        even += arr[i];
+
+    }
+
+    check = (10 - ((odd * 3 + even) % 10)) % 10;
+
+    printf("Check point is %d\n", check);
+
+    if (check == arr[11])
+
+        printf("Barcode is valid!\n");
+
+    else
+
+        printf("Barcode is invalid!\n");
+
+    
+
+    system("pause");
+
+    return 0;
+
+}
