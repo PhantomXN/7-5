@@ -2,42 +2,45 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h> // printf, scanf definition.
 #include <stdlib.h> // system pause definition.
-#define sur 16
-#define fir 11
-#define mid 2
+#include <string.h>
+#define sur 15
+#define fir 10
+#define mid 5
+#define max 80
 
 FILE* input; // input file
 FILE* output; // output file
 
 int main(void) {
 	int state;
-	char sn[80],
-		fn[80],
-		mn[80];
-		
-	char surname[sur],
-		first[fir],
-		middle_init[mid];
+	char sn[max],
+		fn[max],
+		mn[max],
+		s[sur+1],
+		f[fir+1],
+		m[mid+1];
+
+	char *surname,
+		*first,
+		*middle_init;
 
 	input = fopen("data.txt", "r");
 	output = fopen("result.txt", "w");
 
 	state = fscanf(input, "%[^ ] %[^ ] %[^\n]\n", sn, fn, mn);
 	do {
-		
-		for (int i = 0; i < sur - 1 && sn[i] != ',' && sn[i] != '.' && sn[i] != '\0'; i++) {
-			fprintf(output, "%c", sn[i]);
-		}
-		fprintf(output, "\t");
-		for (int i = 0; i < fir - 1 && fn[i] != ',' && fn[i] != '.' && fn[i] != '\0'; i++) {
-			fprintf(output, "%c", fn[i]);
-		}
-		fprintf(output, "\t");
-		for (int i = 0; i < mid - 1 && mn[i] != ',' && mn[i] != '.' && mn[i] != '\0'; i++) {
-			fprintf(output, "%c", mn[i]);
-		}
-		fprintf(output, "\n");
-		char sn[80], fn[80], mn[80], surname[sur], first[fir], middle_init[mid] = { '\0' };
+		strncpy(s, sn, sur);
+		s[sur] = '\0';
+		strncpy(f, fn, fir);
+		f[fir] = '\0';
+		strncpy(m, mn, mid);
+		m[mid] = '\0';
+
+		surname = strtok(s, ", ");
+		first = strtok(f, ". ");
+		middle_init = strtok(m, ". ");
+
+		fprintf(output, "%-20s %-15s %s\n", surname, first, middle_init);
 		state = fscanf(input, "%[^ ] %[^ ] %[^\n]\n", sn, fn, mn);
 	} while (state != EOF);
 
