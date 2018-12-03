@@ -1,0 +1,52 @@
+// 
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h> // printf, scanf definition.
+#include <stdlib.h> // system pause definition.
+#define sur 16
+#define fir 11
+#define mid (80-sur-fir)
+
+FILE* input; // input file
+FILE* output; // output file
+
+int main(void) {
+	int state;
+	char sn[80],
+		fn[80],
+		mn[80];
+		
+	char surname[sur],
+		first[fir],
+		middle_init[mid];
+
+	input = fopen("data.txt", "r");
+	output = fopen("result.txt", "w");
+
+	do {
+		state = fscanf(input, "%[^ ] %[^ ] %[^\n]\n", sn, fn, mn);
+		for (int i = 0; i < sur; i++) {
+			if (sn[i] != ',' && sn[i] != '.')
+				surname[i] = sn[i];
+		}
+		for (int i = 0; i < fir; i++) {
+			if (fn[i] != ',' && fn[i] != '.')
+				first[i] = fn[i];
+		}
+		for (int i = 0; i < mid; i++) {
+			if (mn[i] != ',' && mn[i] != '.')
+				middle_init[i] = mn[i];
+		}
+		fprintf(output, "%s\t%s\t%s\n", surname, first, middle_init);
+		char sn[80], fn[80], mn[80], surname[sur], first[fir], middle_init[mid] = { '\0' };
+	} while (state != -1);
+
+	printf("Done!\n");
+
+	fclose(input);
+	fclose(output);
+
+
+
+	system("pause");
+	return 0;
+}
