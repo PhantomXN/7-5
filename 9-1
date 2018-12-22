@@ -1,0 +1,48 @@
+#define _CRT_SRCURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#define SIZE 5
+
+int blob_check(int blobs[SIZE][SIZE], int x, int y, int cells);
+
+int main(void) {
+	int blobs[SIZE][SIZE] = { {0,1,0,1,1},{1,0,0,0,1},{0,0,1,0,1},{0,1,1,0,0},{1,1,0,0,0} };
+	int x = 1,
+		y = 3,
+		cells = 0;
+	printf("The blob has %d cells.", blob_check(blobs, x, y, cells));
+
+	system("pause");
+	return 0;
+}
+
+int blob_check(int blobs[SIZE][SIZE], int x, int y, int cells) {
+	int x1 = x - 1,
+		x2 = x + 1,
+		y1 = y - 1,
+		y2 = y + 2;
+	if (x1 < 0)
+		x1 = x;
+	if (x2 > 4)
+		x2 = x;
+	if (y1 < 0)
+		y1 = y;
+	if (y2 > 4)
+		y2 = y;
+	if (blobs[x][y]) {
+		cells += 1;
+		blobs[x][y] = 0;
+		blob_check(blobs, x1, y1, cells);
+		blob_check(blobs, x, y1, cells);
+		blob_check(blobs, x2, y1, cells);
+		blob_check(blobs, x1, y, cells);
+		blob_check(blobs, x2, y, cells);
+		blob_check(blobs, x1, y2, cells);
+		blob_check(blobs, x, y2, cells);
+		blob_check(blobs, x2, y2, cells);
+		if (!blobs[x1][y1] && !blobs[x][y1] && !blobs[x2][y1] && !blobs[x1][y] && !blobs[x2][y] && !blobs[x1][y2] && !blobs[x][y2] && !blobs[x2][y2]) {
+			return cells;
+		}
+	}
+}
